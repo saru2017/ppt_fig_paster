@@ -9,6 +9,7 @@ from pptx.dml.color import RGBColor
 import openpyxl
 import argparse
 import sys
+import glob
 
 
 def place_fig(filename, num):
@@ -23,14 +24,38 @@ def place_fig(filename, num):
 
 # https://hogelog.com/python/python-powerpoint-1.html
 
+
 ppt = pptx.Presentation()
 
 ppt.slide_width = Cm(21.0)
 ppt.slide_height = Cm(29.7)
 g_gap = 0.03
-
 card_wdith = 6.3
 card_height = 8.8
+
+filenames = glob.glob("./data/*.jpg")
+print(filenames)
+
+count = len(filenames) * 4
+
+for i in range(count):
+    filename = filenames[i // 4]
+    if i % 9 == 0:
+        blank_slide_layout = ppt.slide_layouts[6]
+        #スライドを追加#
+        g_slide = ppt.slides.add_slide(blank_slide_layout)
+
+        shape = g_slide.shapes.add_shape(MSO_SHAPE.RECTANGLE, Cm(1.0), Cm(1.4), Cm(6.3 * 3 + g_gap * 3), Cm(8.8 * 3 + g_gap * 3))
+        shape.line.color.rgb = RGBColor(0, 0, 0)
+        shape.fill.solid()
+        shape.fill.fore_color.rgb = RGBColor(0, 0, 0)
+
+    
+    place_fig(filename, i % 9)
+
+ppt.save("./output.pptx")
+
+exit(1)
 
 blank_slide_layout = ppt.slide_layouts[6]
 #スライドを追加#
