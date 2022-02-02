@@ -40,9 +40,9 @@ for i in range(count):
         g_slide = ppt.slides.add_slide(blank_slide_layout)
 
         shape = g_slide.shapes.add_shape(MSO_SHAPE.RECTANGLE, Cm(1.0), Cm(1.4), Cm(6.3 * 3 + g_gap * 3), Cm(8.8 * 3 + g_gap * 3))
-        shape.line.color.rgb = RGBColor(0, 0, 0)
+        shape.line.color.rgb = RGBColor(0, 0, 203)
         shape.fill.solid()
-        shape.fill.fore_color.rgb = RGBColor(0, 0, 0)
+        shape.fill.fore_color.rgb = RGBColor(0, 0, 203)
 
     
     place_fig(filename, i % 9)
